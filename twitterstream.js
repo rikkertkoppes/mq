@@ -24,3 +24,7 @@ function initStream(exchange) {
       });
     });
 }
+
+process.on('exit', function () {
+  connection.end();
+});

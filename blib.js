@@ -19,3 +19,7 @@ function initStream(exchange) {
         exchange.publish('', {body:blib});
     },1000);
 }
+
+process.on('exit', function () {
+  connection.end();
+});

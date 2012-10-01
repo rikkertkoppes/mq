@@ -37,3 +37,7 @@ connection.on('ready', function () {
         });
     });
 });
+
+process.on('exit', function () {
+  connection.end();
+});
