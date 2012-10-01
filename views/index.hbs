@@ -1,0 +1,12 @@
+<script src="/socket.io/socket.io.js"></script>
+
+<h1>Blibs</h1>
+<p id="out"></p>
+
+<script>
+var socket = io.connect('http://localhost');
+socket.on('blib', function (data) {
+    document.getElementById('out').innerHTML = data.body;
+// socket.emit('my other event', { my: 'data' });
+});
+</script>
