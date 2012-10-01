@@ -1,5 +1,83 @@
 {
+  "name": "mq",
+  "version": "0.0.0",
   "dependencies": {
+    "express": {
+      "version": "3.0.0rc4",
+      "dependencies": {
+        "connect": {
+          "version": "2.4.4",
+          "dependencies": {
+            "qs": {
+              "version": "0.4.2"
+            },
+            "formidable": {
+              "version": "1.0.11"
+            },
+            "bytes": {
+              "version": "0.1.0"
+            },
+            "pause": {
+              "version": "0.0.1"
+            }
+          }
+        },
+        "commander": {
+          "version": "0.6.1"
+        },
+        "range-parser": {
+          "version": "0.0.4"
+        },
+        "mkdirp": {
+          "version": "0.3.3"
+        },
+        "cookie": {
+          "version": "0.0.4"
+        },
+        "crc": {
+          "version": "0.2.0"
+        },
+        "fresh": {
+          "version": "0.1.0"
+        },
+        "methods": {
+          "version": "0.0.1"
+        },
+        "send": {
+          "version": "0.0.4",
+          "dependencies": {
+            "mime": {
+              "version": "1.2.6"
+            }
+          }
+        },
+        "debug": {
+          "version": "0.7.0"
+        }
+      }
+    },
+    "hbs": {
+      "version": "1.0.3",
+      "from": "https://github.com/rikkertkoppes/hbs/tarball/a4f1efdb30bf97fb0e21c71201e1c815b14262f3",
+      "dependencies": {
+        "handlebars": {
+          "version": "1.0.7",
+          "dependencies": {
+            "optimist": {
+              "version": "0.3.4",
+              "dependencies": {
+                "wordwrap": {
+                  "version": "0.0.2"
+                }
+              }
+            },
+            "uglify-js": {
+              "version": "1.2.6"
+            }
+          }
+        }
+      }
+    },
     "amqp": {
       "version": "0.1.3"
     },

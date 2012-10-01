@@ -4,6 +4,8 @@
   "description": "rabbitmq playground",
   "main": "blib.js",
   "dependencies": {
+    "express": "~3.0",
+    "hbs": "https://github.com/rikkertkoppes/hbs/tarball/a4f1efdb30bf97fb0e21c71201e1c815b14262f3",
     "amqp": "~0.1.3",
     "socket.io": "~0.9.10",
     "tuiter": "~0.2.0"
