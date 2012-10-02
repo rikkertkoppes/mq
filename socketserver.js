@@ -1,7 +1,7 @@
 var express = require('express');
 var socket = require('socket.io');
 var amqp = require('amqp');
-var mqconfig = require('amqp.config.json');
+var mqconfig = require('./amqp.config.json');
 
 var path = require('path');
 var config = {

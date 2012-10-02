@@ -1,6 +1,6 @@
 var repl = require('repl');
 var amqp = require('amqp');
-var config = require('amqp.config.json');
+var config = require('./amqp.config.json');
 
 // var connection = amqp.createConnection({host: '192.168.0.108' });
 // var connection = amqp.createConnection({host: 'camarillo' });

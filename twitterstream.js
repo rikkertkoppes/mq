@@ -1,5 +1,5 @@
-var keys = require('twitter.config.json');
-var config = require('amqp.config.json');
+var keys = require('./twitter.config.json');
+var config = require('./amqp.config.json');
 
 var amqp = require('amqp');
 var tu = require('tuiter')(keys);

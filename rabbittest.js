@@ -1,5 +1,5 @@
 var amqp = require('amqp');
-var config = require('amqp.config.json');
+var config = require('./amqp.config.json');
 
 // var connection = amqp.createConnection({ });
 var connection = amqp.createConnection(config);
