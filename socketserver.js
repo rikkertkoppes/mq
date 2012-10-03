@@ -37,7 +37,9 @@ function initQ(exchange) {
     var io = socket.listen(app);
     io.sockets.on('connection', function (socket) {
         //a queue for every connection
-        connection.queue('', function(q) {
+        connection.queue('', {
+            closeChannelOnUnsubscribe: true
+        }, function(q) {
             console.log('io connection');
             q.bind(exchange,'');
 
@@ -48,7 +50,9 @@ function initQ(exchange) {
             });
 
             socket.on('disconnect', function () {
+                console.log('disconnected socket');
                 q.unbind(exchange,'');
+                q.destroy();
             });
         });
     });
