@@ -40,6 +40,7 @@ function initQ(exchange) {
         connection.queue('', {
             closeChannelOnUnsubscribe: true
         }, function(q) {
+            var ctag;
             console.log('io connection');
             q.bind(exchange,'');
 
@@ -47,12 +48,18 @@ function initQ(exchange) {
               // Print messages to stdout
               console.log(message);
               socket.emit('blib', message);
+            }).addCallback(function(ok) {
+                ctag = ok.consumerTag;
+                console.log(ctag);
             });
+
+            console.log(q);
 
             socket.on('disconnect', function () {
                 console.log('disconnected socket');
-                q.unbind(exchange,'');
-                q.destroy();
+                q.unsubscribe(ctag);
+                // q.unbind(exchange,'');
+                // q.destroy();
             });
         });
     });
