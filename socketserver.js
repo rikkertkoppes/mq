@@ -10,6 +10,7 @@ var config = {
 var server = express();
 
 server.use(express.logger('dev'));
+server.use(express.bodyParser());
 // server.use(express.static(path.normalize(__dirname + '/webroot')));
 server.set('views', path.normalize(__dirname + '/views'));
 server.set('view engine', 'hbs');
@@ -19,6 +20,10 @@ server.get('/',function(req,res) {
     res.render('index',{});
 });
 
+process.on('exit', function () {
+    connection.end();
+});
+
 var app = server.listen(config.port);
 console.log('server started on port',config.port);
 
@@ -26,16 +31,28 @@ var connection = amqp.createConnection(mqconfig);
 connection.on('ready', function () {
     var io = socket.listen(app);
     io.sockets.on('connection', function (socket) {
-        initQ(socket,'blib');
-        initQ(socket,'hw');
+        initQ(connection,socket,'blib');
+        initQ(connection,socket,'hw');
     });
+
+    initRest(connection,server);
 });
 
-process.on('exit', function () {
-    connection.end();
-});
 
-function initQ(socket,exchangeName) {
+function initRest(connection,server) {
+
+    server.post('/mq/:exchange',function(req,res) {
+        var en = req.params.exchange;
+        var body = req.param('body');
+        console.log(body);
+        connection.exchange(en, {type:"fanout"}, function (exchange) {
+            exchange.publish('', {body:body});
+            res.end('sent');
+        });
+    });
+}
+
+function initQ(connection,socket,exchangeName) {
     connection.exchange(exchangeName, {type:"fanout"}, function (exchange) {
         //a queue for every connection
         connection.queue('', {
