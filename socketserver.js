@@ -24,8 +24,10 @@ console.log('server started on port',config.port);
 
 var connection = amqp.createConnection(mqconfig);
 connection.on('ready', function () {
-    connection.exchange('blib', {type:"fanout"}, function (exchange) {
-        initQ(exchange);
+    var io = socket.listen(app);
+    io.sockets.on('connection', function (socket) {
+        initQ(socket,'blib');
+        initQ(socket,'hw');
     });
 });
 
@@ -33,9 +35,8 @@ process.on('exit', function () {
     connection.end();
 });
 
-function initQ(exchange) {
-    var io = socket.listen(app);
-    io.sockets.on('connection', function (socket) {
+function initQ(socket,exchangeName) {
+    connection.exchange(exchangeName, {type:"fanout"}, function (exchange) {
         //a queue for every connection
         connection.queue('', {
             closeChannelOnUnsubscribe: true
@@ -47,7 +48,7 @@ function initQ(exchange) {
             q.subscribe(function (message) {
               // Print messages to stdout
               console.log(message);
-              socket.emit('blib', message);
+              socket.emit(exchangeName, message);
             }).addCallback(function(ok) {
                 ctag = ok.consumerTag;
                 console.log(ctag);
