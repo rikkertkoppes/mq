@@ -1,3 +1,4 @@
 node_modules/
+presentation/
 *.config.json
 notes.md
